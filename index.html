@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Devicon CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/devicon@2.14.0/devicon.min.css" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -45,43 +47,77 @@
             font-weight: 600;
             text-align: center;
         }
-        .card {
-            margin-bottom: 20px;
-            border: none;
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .skill-card {
+            position: relative;
+            width: 200px;
+            height: 250px;
+            margin: 10px;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.6s;
+        }
+        .skill-card-inner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            transform-origin: center;
+        }
+        .skill-card:hover .skill-card-inner {
+            transform: rotateY(180deg);
+        }
+        .skill-card-front,
+        .skill-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
             border-radius: 5px;
-            background-color: #1e1e1e; /* Dark background for cards */
+        }
+        .skill-card-front {
+            background-color: #1e1e1e; /* Dark background for card front */
+            color: #e0e0e0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            transition: box-shadow 0.3s ease, transform 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            z-index: 2;
         }
-        .card.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .skill-card-back {
+            background-color: #2e2e2e; /* Slightly darker background for card back */
+            color: #e0e0e0;
+            transform: rotateY(180deg);
+            z-index: 1;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
-        .card:hover {
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
-            transform: translateY(-5px);
+        .skill-card-front i {
+            font-size: 80px; /* Icon size */
+            color: #ff5722; /* Orange color for icons */
+            margin-bottom: 10px;
         }
-        .card-header {
-            background-color: #ff5722; /* Orange accent for card headers */
-            color: #fff;
-            font-weight: 600;
-            border-bottom: none;
-            border-radius: 5px 5px 0 0;
+        .skill-card-front p {
+            margin: 0;
+            font-size: 1.2em;
         }
-        .card-body ul {
-            list-style: none;
-            padding: 0;
+        .skill-card-back i {
+            font-size: 40px; /* Smaller icon size on the back */
+            color: #ff5722; /* Orange color for icons */
+            margin-bottom: 15px;
         }
-        .card-body ul li {
-            padding: 10px;
-            font-size: 1.1em;
-        }
-        .card-body ul li i {
-            margin-right: 10px;
-            color: #ff5722; /* Orange accent for icons */
+        .skill-card-back p {
+            margin: 0;
+            font-size: 1em;
         }
         .footer {
             background-color: #1e1e1e; /* Dark background for footer */
@@ -169,6 +205,7 @@
         <a href="#header" class="nav-link" title="Home"><i class="fas fa-home"></i></a>
         <a href="#works" class="nav-link" title="Sample Works"><i class="fas fa-briefcase"></i></a>
         <a href="#skills" class="nav-link" title="Skills"><i class="fas fa-cogs"></i></a>
+        <a href="#portfolio" class="nav-link" title="Portfolio"><i class="fas fa-portfolio"></i></a>
     </div>
 
     <header id="header">
@@ -191,7 +228,7 @@
                         <img src="https://via.placeholder.com/350x200" alt="Project 1" class="project-thumbnail">
                         <div class="card-body">
                             <h5 class="card-title">Project 1</h5>
-                            <p class="card-text">A dynamic web application showcasing interactive features and responsive design.</p>
+                            <p class="card-text">An innovative web application that enhances user interaction and streamlines processes.</p>
                             <a href="https://example.com/project1" target="_blank" class="project-link">View Project</a>
                         </div>
                     </div>
@@ -201,7 +238,7 @@
                         <img src="https://via.placeholder.com/350x200" alt="Project 2" class="project-thumbnail">
                         <div class="card-body">
                             <h5 class="card-title">Project 2</h5>
-                            <p class="card-text">A robust backend solution with API integration and efficient data handling.</p>
+                            <p class="card-text">A robust e-commerce platform with advanced functionalities and high scalability.</p>
                             <a href="https://example.com/project2" target="_blank" class="project-link">View Project</a>
                         </div>
                     </div>
@@ -211,7 +248,7 @@
                         <img src="https://via.placeholder.com/350x200" alt="Project 3" class="project-thumbnail">
                         <div class="card-body">
                             <h5 class="card-title">Project 3</h5>
-                            <p class="card-text">A cross-platform mobile application built with React Native for seamless user experience.</p>
+                            <p class="card-text">A cross-platform mobile app delivering a seamless user experience across various devices.</p>
                             <a href="https://example.com/project3" target="_blank" class="project-link">View Project</a>
                         </div>
                     </div>
@@ -221,77 +258,170 @@
 
         <section id="skills" class="fade-in">
             <h2 class="section-heading">Skills</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            Frontend Development
+            <div class="skills-container">
+                <!-- Skill cards -->
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-html5-plain colored"></i>
+                            <p>HTML5</p>
                         </div>
-                        <div class="card-body">
-                            <p>Skilled in creating engaging and responsive user interfaces using the latest web technologies:</p>
-                            <ul>
-                                <li><i class="fab fa-html5"></i><strong>HTML</strong></li>
-                                <li><i class="fab fa-css3-alt"></i><strong>CSS</strong></li>
-                                <li><i class="fab fa-js-square"></i><strong>JavaScript (ES6+)</strong></li>
-                                <li><i class="fab fa-react"></i><strong>React</strong></li>
-                                <li><i class="fab fa-angular"></i><strong>Angular</strong></li>
-                                <li><i class="fab fa-vuejs"></i><strong>Vue.js</strong></li>
-                            </ul>
+                        <div class="skill-card-back">
+                            <i class="devicon-html5-plain colored"></i>
+                            <p>Proficient in creating semantic and accessible HTML documents.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            Backend Development
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-css3-plain colored"></i>
+                            <p>CSS3</p>
                         </div>
-                        <div class="card-body">
-                            <p>Experienced in developing efficient server-side applications and managing back-end technologies:</p>
-                            <ul>
-                                <li><i class="fas fa-server"></i><strong>PHP</strong></li>
-                                <li><i class="fas fa-server"></i><strong>Node.js</strong></li>
-                                <li><i class="fas fa-server"></i><strong>Python</strong></li>
-                                <li><i class="fas fa-tools"></i><strong>Git</strong></li>
-                                <li><i class="fas fa-tools"></i><strong>Docker</strong></li>
-                                <li><i class="fas fa-tools"></i><strong>AWS</strong></li>
-                            </ul>
+                        <div class="skill-card-back">
+                            <i class="devicon-css3-plain colored"></i>
+                            <p>Experienced in styling and designing modern, responsive web pages.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            Databases
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-javascript-plain colored"></i>
+                            <p>JavaScript</p>
                         </div>
-                        <div class="card-body">
-                            <p>Proficient in managing and optimizing various database systems for high performance:</p>
-                            <ul>
-                                <li><i class="fas fa-database"></i><strong>SQL (MySQL, PostgreSQL)</strong></li>
-                                <li><i class="fas fa-database"></i><strong>NoSQL (MongoDB)</strong></li>
-                            </ul>
+                        <div class="skill-card-back">
+                            <i class="devicon-javascript-plain colored"></i>
+                            <p>Skilled in writing dynamic and interactive client-side scripts.</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card animate__animated animate__fadeInUp">
-                        <div class="card-header">
-                            Mobile Development
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-react-original colored"></i>
+                            <p>React</p>
                         </div>
-                        <div class="card-body">
-                            <p>Expert in building cross-platform mobile applications using:</p>
-                            <ul>
-                                <li><i class="fas fa-mobile-alt"></i><strong>React Native</strong></li>
-                            </ul>
+                        <div class="skill-card-back">
+                            <i class="devicon-react-original colored"></i>
+                            <p>Knowledgeable in building scalable user interfaces using React.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-angularjs-plain colored"></i>
+                            <p>Angular</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-angularjs-plain colored"></i>
+                            <p>Experienced in developing single-page applications with Angular.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-vuejs-plain colored"></i>
+                            <p>Vue.js</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-vuejs-plain colored"></i>
+                            <p>Skilled in creating interactive UIs using Vue.js framework.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-php-plain colored"></i>
+                            <p>PHP</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-php-plain colored"></i>
+                            <p>Experienced in server-side scripting and building web applications.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-nodejs-plain colored"></i>
+                            <p>Node.js</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-nodejs-plain colored"></i>
+                            <p>Proficient in server-side development with Node.js and Express.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-python-plain colored"></i>
+                            <p>Python</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-python-plain colored"></i>
+                            <p>Knowledgeable in building applications and scripts using Python.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-mysql-plain colored"></i>
+                            <p>MySQL</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-mysql-plain colored"></i>
+                            <p>Experienced in designing and managing relational databases with MySQL.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-mongodb-plain colored"></i>
+                            <p>MongoDB</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-mongodb-plain colored"></i>
+                            <p>Skilled in using MongoDB for scalable, NoSQL database solutions.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-inner">
+                        <div class="skill-card-front">
+                            <i class="devicon-react-original colored"></i>
+                            <p>React Native</p>
+                        </div>
+                        <div class="skill-card-back">
+                            <i class="devicon-react-original colored"></i>
+                            <p>Proficient in building cross-platform mobile applications using React Native.</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+
+        <section id="portfolio" class="fade-in">
+            <h2 class="section-heading">Portfolio</h2>
+            <p class="text-center">Explore my portfolio of work and see how I transform ideas into functional digital solutions.</p>
+            <!-- Add additional content or showcase here -->
         </section>
     </div>
 
     <footer class="footer">
         <p>© 2024 Mark Anthony Menor. All rights reserved.</p>
     </footer>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Intersection Observer API for scroll animations -->
     <script>
@@ -308,46 +438,16 @@
                 });
             }, { threshold: 0.1 });
 
-            fadeIns.forEach(element => {
-                observer.observe(element);
-            });
-
-            // Smooth scrolling for nav links
-            const navLinks = document.querySelectorAll('.side-nav a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Highlight active section
-            const sections = document.querySelectorAll('section');
-            const sideNavLinks = document.querySelectorAll('.side-nav a');
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    if (pageYOffset >= sectionTop - 60) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                sideNavLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href').includes(current)) {
-                        link.classList.add('active');
-                    }
-                });
+            fadeIns.forEach(fadeIn => {
+                observer.observe(fadeIn);
             });
         });
-    </script>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        // Add hover effect for skill cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseover', () => card.classList.add('flipped'));
+            card.addEventListener('mouseout', () => card.classList.remove('flipped'));
+        });
+    </script>
 </body>
 </html>
