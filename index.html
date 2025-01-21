@@ -35,6 +35,13 @@
             margin-bottom: 10px;
             font-weight: 700;
         }
+        .profile-picture {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #333;
+        }
         .short-description {
             font-size: 1.2em;
             color: #b0b0b0; /* Slightly lighter color for the short description */
@@ -209,11 +216,12 @@
     <div class="side-nav">
         <a href="#header" class="nav-link" title="Home"><i class="fas fa-home"></i></a>
         <!-- <a href="#works" class="nav-link" title="Sample Works"><i class="fas fa-briefcase"></i></a> -->
-        <a href="#skills" class="nav-link" title="Skills"><i class="fas fa-swords"></i></a>
+        <a href="#skills" class="nav-link" title="Skills"><i class="fas fa-cogs"></i></a>
         <a href="#portfolio" class="nav-link" title="Portfolio"><i class="fas fa-portfolio"></i></a>
     </div>
 
     <header id="header">
+        <img src="your-image.jpg" alt="My Picture" class="profile-picture">
         <h1>Mark Anthony Menor</h1>
         <p class="short-description">Transforming complex ideas into seamless digital solutions.</p>
         <div class="social-icons">
