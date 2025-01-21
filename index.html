@@ -228,24 +228,6 @@
                 flex-direction: column;
                 align-items: center;
             }
-        
-            .skill-card {
-                width: 150px; /* Smaller size for mobile */
-                height: 200px; 
-                margin: 10px auto;
-            }
-        
-            .skill-card-front i {
-                font-size: 50px; /* Adjust icon size */
-            }
-        
-            .skill-card-front p {
-                font-size: 1em;
-            }
-        
-            .skill-card-back p {
-                font-size: 0.9em;
-            }
         }
     </style>
 </head>
@@ -483,16 +465,6 @@
             }, { threshold: 0.5 }); // Trigger when 50% of the card is visible
         
             skillCards.forEach(card => observer.observe(card));
-        });
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            const skillCards = document.querySelectorAll(".skill-card");
-        
-            skillCards.forEach(card => {
-                card.addEventListener("click", function () {
-                    this.querySelector(".skill-card-inner").classList.toggle("flipped");
-                });
-            });
         });
     </script>
 </body>
