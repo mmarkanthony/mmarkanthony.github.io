@@ -91,6 +91,9 @@
         .skill-card:hover .skill-card-inner {
             transform: rotateY(180deg);
         }
+        .skill-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
         .skill-card-front,
         .skill-card-back {
             position: absolute;
@@ -442,6 +445,22 @@
             });
 
             fadeIns.forEach(el => observer.observe(el));
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const skillCards = document.querySelectorAll(".skill-card-inner");
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !entry.target.classList.contains("flipped")) {
+                        entry.target.classList.add("flipped");
+                        setTimeout(() => {
+                            entry.target.classList.remove("flipped");
+                        }, 1500); // Delay before flipping back
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the card is visible
+        
+            skillCards.forEach(card => observer.observe(card));
         });
     </script>
 </body>
