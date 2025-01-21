@@ -480,6 +480,26 @@
         
             skillCards.forEach(card => observer.observe(card));
         });
+        document.addEventListener("DOMContentLoaded", function () {
+            function typeEffect(element, speed) {
+                const text = element.innerHTML;
+                element.innerHTML = "";
+                let i = 0;
+                function type() {
+                    if (i < text.length) {
+                        element.innerHTML += text.charAt(i);
+                        i++;
+                        setTimeout(type, speed);
+                    }
+                }
+                type();
+            }
+        
+            const paragraphs = document.querySelectorAll("p, h1, h3");
+            paragraphs.forEach((p, index) => {
+                setTimeout(() => typeEffect(p, 50), index * 500); // Delay each element
+            });
+        });
     </script>
 </body>
 </html>
